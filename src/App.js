@@ -19,6 +19,9 @@ class App extends React.Component {
     }
   }
 
+  /**
+   * Renders the component
+   */
   render() {
     return (
       <div>
@@ -42,10 +45,22 @@ class App extends React.Component {
     )
   }
 
+  /**
+   * Replaces the taskName whenever a taskname id being typed
+   * 
+   * @param {*} event 
+   *    The event triggered when typing
+   */
   typeTaskName(event) {
     this.setState({ taskName: event.target.value });
   }
 
+  /**
+   * Checks off the list a given task
+   * 
+   * @param {*} taskId 
+   *    The task to be checked off
+   */
   checkTask(taskId) {
     const updatedTasks = this.state.tasks.map(task => {
       if(task.id === taskId) {
@@ -58,12 +73,24 @@ class App extends React.Component {
     this.setState({tasks: updatedTasks});
   }
 
+  /**
+   * Deletes a given task from the list
+   * 
+   * @param {*} taskId 
+   *    The task to be deleted
+   */
   deleteTask(taskId) {
     const updatedTasks = this.state.tasks.filter(task => task.id !== taskId);
 
     this.setState({ tasks: updatedTasks });
   }
 
+  /**
+   * Adds a task to the list when the task form is submitted
+   * 
+   * @param {*} event 
+   *    The event triggered when the task form is submitted
+   */
   addTask(event) {
     event.preventDefault();
 
