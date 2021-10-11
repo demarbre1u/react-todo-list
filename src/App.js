@@ -11,8 +11,8 @@ class App extends React.Component {
       tasks: [
         {id: 1, message: 'Make a todo-list', done: true},
         {id: 2, message: 'Make it checkable', done: true},
-        {id: 3, message: 'Make it so that you can add items', done: false},
-        {id: 4, message: 'Make it so that you can remove items', done: false},
+        {id: 3, message: 'Make it so that you can add items', done: true},
+        {id: 4, message: 'Make it so that you can remove items', done: true},
         {id: 5, message: 'Style it', done: false},
       ], 
       taskName: ''
@@ -21,7 +21,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
+      <div>
         <p>Todo-list :</p>
 
         <ul>
@@ -29,6 +29,7 @@ class App extends React.Component {
             <li key={task.id} className={task.done ? 'overlined' : ''} > 
               {task.message} 
               <input onClick={() => this.checkTask(task.id)} type="checkbox" defaultChecked={task.done && 'checked'}></input>
+              <button onClick={() => this.deleteTask(task.id)}>x</button>
             </li>
           ))}
         </ul>
@@ -42,7 +43,7 @@ class App extends React.Component {
   }
 
   typeTaskName(event) {
-    this.setState({ taskName: event.target.value})
+    this.setState({ taskName: event.target.value });
   }
 
   checkTask(taskId) {
@@ -54,7 +55,13 @@ class App extends React.Component {
       return task;
     });
 
-    this.setState({tasks: updatedTasks})
+    this.setState({tasks: updatedTasks});
+  }
+
+  deleteTask(taskId) {
+    const updatedTasks = this.state.tasks.filter(task => task.id !== taskId);
+
+    this.setState({ tasks: updatedTasks });
   }
 
   addTask(event) {
