@@ -48,7 +48,7 @@ class App extends React.Component {
   /**
    * Replaces the taskName whenever a taskname id being typed
    * 
-   * @param {*} event 
+   * @param {string} event 
    *    The event triggered when typing
    */
   typeTaskName(event) {
@@ -58,7 +58,7 @@ class App extends React.Component {
   /**
    * Checks off the list a given task
    * 
-   * @param {*} taskId 
+   * @param {string} taskId 
    *    The task to be checked off
    */
   checkTask(taskId) {
@@ -76,7 +76,7 @@ class App extends React.Component {
   /**
    * Deletes a given task from the list
    * 
-   * @param {*} taskId 
+   * @param {string} taskId 
    *    The task to be deleted
    */
   deleteTask(taskId) {
