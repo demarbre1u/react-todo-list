@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
 
+import TodolistItem from './components/TodolistItem';
+
 import { v4 as uuidv4 } from 'uuid';
 
 class App extends React.Component {
@@ -29,11 +31,7 @@ class App extends React.Component {
 
         <ul>
           {this.state.tasks.map(task => (
-            <li key={task.id} className={task.done ? 'overlined' : ''} > 
-              {task.message} 
-              <input onClick={() => this.checkTask(task.id)} type="checkbox" defaultChecked={task.done && 'checked'}></input>
-              <button onClick={() => this.deleteTask(task.id)}>x</button>
-            </li>
+            <TodolistItem key={task.id} task={task} checkTask={taskId => this.checkTask(taskId)} deleteTask={taskId => this.deleteTask(taskId)} />
           ))}
         </ul>
 
