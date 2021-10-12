@@ -2,6 +2,9 @@ import React from 'react';
 import './App.css';
 
 import TodolistItem from './components/TodolistItem';
+import Header from './components/Header';
+
+import { Box, Button, Input, InputGroup, InputRightElement, List, Divider, Heading, Container, Text } from "@chakra-ui/react"
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -27,18 +30,37 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <p>Todo-list :</p>
+        <Header />
+        
+        <Container>
+          <Box m="4" maxW="md" borderWidth="1px" borderRadius="1px">
+            <Heading m="2" textAlign="center" size="md">Todo-list</Heading>
 
-        <ul>
-          {this.state.tasks.map(task => (
-            <TodolistItem key={task.id} task={task} checkTask={taskId => this.checkTask(taskId)} deleteTask={taskId => this.deleteTask(taskId)} />
-          ))}
-        </ul>
+            <Divider />
 
-        <form onSubmit={event => this.addTask(event)}>
-          <input type="text" name="taskLabel" value={this.state.taskName} onChange={event => this.typeTaskName(event)} />
-          <input type="submit" value="Add" />
-        </form>
+            <List spacing={2} m="2">
+              {this.state.tasks && this.state.tasks.map(task => (
+                <TodolistItem key={task.id} task={task} checkTask={taskId => this.checkTask(taskId)} deleteTask={taskId => this.deleteTask(taskId)} />
+              ))}
+
+              {this.state.tasks.length === 0 && <Text color="grey">There are no tasks yet</Text>}
+            </List>
+
+            <Divider />
+
+            <Box m="2">
+              <form onSubmit={event => this.addTask(event)}>
+                <InputGroup>
+                  <Input placeholder="Enter new task" name="taskLabel" onChange={event => this.typeTaskName(event)} value={this.state.taskName} isRequired />
+
+                  <InputRightElement>
+                    <Button mr="1" h="1.75rem" size="sm" type="submit" colorScheme="blue">Add</Button>
+                  </InputRightElement>
+                </InputGroup>
+              </form>
+            </Box>
+          </Box>
+        </Container>
       </div>
     )
   }
