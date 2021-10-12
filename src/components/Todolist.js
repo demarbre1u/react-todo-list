@@ -1,13 +1,10 @@
 import React from "react";
 
 import TodolistItem from '../components/TodolistItem';
+import TodolistForm from "./TodolistForm";
 
 import { 
     Box, 
-    Button, 
-    Input, 
-    InputGroup, 
-    InputRightElement, 
     List, 
     Divider, 
     Heading, 
@@ -27,8 +24,7 @@ class Todolist extends React.Component {
                 {id: 3, message: 'Make it so that you can add items', done: true},
                 {id: 4, message: 'Make it so that you can remove items', done: true},
                 {id: 5, message: 'Style it', done: false},
-            ], 
-            taskName: ''
+            ]
         }
     }
 
@@ -50,32 +46,12 @@ class Todolist extends React.Component {
 
                     <Divider />
 
-                    <Box m="2">
-                        <form onSubmit={event => this.addTask(event)}>
-                            <InputGroup>
-                                <Input placeholder="Enter new task" name="taskLabel" onChange={event => this.typeTaskName(event)} value={this.state.taskName} isRequired />
-
-                                <InputRightElement>
-                                <Button mr="1" h="1.75rem" size="sm" type="submit" colorScheme="blue">Add</Button>
-                                </InputRightElement>
-                            </InputGroup>
-                        </form>
-                    </Box>
+                    <TodolistForm addTask={ task => this.addTask(task) } />
                 </Box>
             </Container>
         );
     }
     
-    /**
-     * Replaces the taskName whenever a taskname id being typed
-     * 
-     * @param {string} event 
-     *    The event triggered when typing
-     */
-    typeTaskName(event) {
-        this.setState({ taskName: event.target.value });
-    }
-
     /**
      * Checks off the list a given task
      * 
@@ -109,16 +85,14 @@ class Todolist extends React.Component {
     /**
      * Adds a task to the list when the task form is submitted
      * 
-     * @param {*} event 
-     *    The event triggered when the task form is submitted
+     * @param {*} taskName 
+     *    The task to be added
      */
-    addTask(event) {
-        event.preventDefault();
-
-        const newTask = {id: uuidv4(), message: this.state.taskName, done: false};
+    addTask(taskName) {
+        const newTask = {id: uuidv4(), message: taskName, done: false};
         const taskList = [...this.state.tasks, newTask];
 
-        this.setState({ tasks: taskList, taskName: '' });
+        this.setState({ tasks: taskList });
     }
 }
 
