@@ -19,13 +19,9 @@ class Todolist extends React.Component {
         super(props);
         this.state = {
             tasks: [
-                {id: 1, message: 'Make a todo-list', done: true},
-                {id: 2, message: 'Make it checkable', done: true},
-                {id: 3, message: 'Make it so that you can add items', done: true},
-                {id: 4, message: 'Make it so that you can remove items', done: true},
-                {id: 5, message: 'Style it', done: false},
+                {id: 1, message: 'Add new tasks!', done: false},
             ]
-        }
+        };
     }
 
     render() {
@@ -41,7 +37,7 @@ class Todolist extends React.Component {
                             <TodolistItem key={task.id} task={task} checkTask={taskId => this.checkTask(taskId)} deleteTask={taskId => this.deleteTask(taskId)} />
                         ))}
 
-                        {this.state.tasks.length === 0 && <Text color="grey">There are no tasks yet</Text>}
+                        {this.state.tasks.length === 0 && <Text textAlign="center" color="grey">There are no tasks yet</Text>}
                     </List>
 
                     <Divider />
