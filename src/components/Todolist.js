@@ -19,12 +19,6 @@ class Todolist extends React.Component {
         super(props);
 
         let storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
-
-        // If there are no task stored, adds a default one
-        if(storedTasks.length === 0) {
-            localStorage.setItem('tasks', JSON.stringify(storedTasks)); 
-        }
-
         this.state = { tasks: storedTasks };
     }
 
