@@ -17,11 +17,15 @@ import { v4 as uuidv4 } from 'uuid';
 class Todolist extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            tasks: [
-                {id: 1, message: 'Add new tasks!', done: false},
-            ]
-        };
+
+        let storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+        // If there are no task stored, adds a default one
+        if(storedTasks.length === 0) {
+            localStorage.setItem('tasks', JSON.stringify(storedTasks)); 
+        }
+
+        this.state = { tasks: storedTasks };
     }
 
     render() {
@@ -47,6 +51,15 @@ class Todolist extends React.Component {
             </Container>
         );
     }
+
+    /**
+     * Updates the stored tasks in the local storage
+     */
+    updateStoredTasks(tasks) {
+        this.setState({ tasks: tasks });
+        const currentTasks = JSON.stringify(tasks);
+        localStorage.setItem('tasks', currentTasks);
+    }
     
     /**
      * Checks off the list a given task
@@ -63,7 +76,7 @@ class Todolist extends React.Component {
             return task;
         });
 
-        this.setState({tasks: updatedTasks});
+        this.updateStoredTasks(updatedTasks);
     }
 
     /**
@@ -75,7 +88,7 @@ class Todolist extends React.Component {
     deleteTask(taskId) {
         const updatedTasks = this.state.tasks.filter(task => task.id !== taskId);
 
-        this.setState({ tasks: updatedTasks });
+        this.updateStoredTasks(updatedTasks);
     }
 
     /**
@@ -88,7 +101,7 @@ class Todolist extends React.Component {
         const newTask = {id: uuidv4(), message: taskName, done: false};
         const taskList = [...this.state.tasks, newTask];
 
-        this.setState({ tasks: taskList });
+        this.updateStoredTasks(taskList);
     }
 }
 
