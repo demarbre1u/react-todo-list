@@ -25,7 +25,7 @@ To run the app, use the following command lines :
 
 ```bash
 git clone git@github.com:demarbre1u/react_todo-list.git
-cd react_todo-list/
+cd react-todo-list/
 npm i
 npm start
 ```
